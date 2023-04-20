@@ -24,4 +24,4 @@ BR2_EXTERNAL=../STM32MP15x_Dev_Board make stm32mp15x_dev_board_defconfig
 
 ## Issues
 There are so many! But some big ones:
-* The *X11* backage is included, and it tries to run as a service at startup. However the default configuration is incorrect and it only shows a black screen. To prevent X11 from starting, remove the file **/etc/init.d/S40xorg**, or add a working **xorg.conf** file to the **overlay** folder.
+* The *X11* package is included, and it tries to run as a service at startup. However the default configuration is incorrect and it only shows a black screen. To prevent X11 from starting, remove the file **/etc/init.d/S40xorg**, or add a working **xorg.conf** file to the **overlay** folder.
