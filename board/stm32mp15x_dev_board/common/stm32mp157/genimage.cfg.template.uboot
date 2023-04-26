@@ -3,17 +3,12 @@ image sdcard.img {
 		partition-table-type = "gpt"
 	}
 
-	partition fip {
-		image = "fip.bin"
-		size = 2M
-	}
-
 	partition fsbl1 {
-		image = "%ATFBIN%"
+		image = "u-boot-spl.stm32"
 	}
 
 	partition fsbl2 {
-		image = "%ATFBIN%"
+		image = "u-boot-spl.stm32"
 	}
 
 	partition ssbl {

@@ -25,3 +25,8 @@ BR2_EXTERNAL=../STM32MP15x_Dev_Board make stm32mp15x_dev_board_defconfig
 ## Issues
 There are so many! But some big ones:
 * The *X11* package is included, and it tries to run as a service at startup. However the default configuration is incorrect and it only shows a black screen. To prevent X11 from starting, remove the file **/etc/init.d/S40xorg**, or add a working **xorg.conf** file to the **overlay** folder.
+* Linux *.config* **CONFIG_MACH_STM32MP157** changed to **CONFIG_MACH_STM32MP151**.
+* Manually create fip package:
+ * Copy the *u-boot.dtb*, and *u-boot.bin* files from *output/build/uboot-...* to *output/build/arm-trusted-firmware-v2.7/build/stm32mp1/debug* for convenience.
+ * CD to *output\build\arm-trusted-firmware-v2.7\build\stm32mp1\debug* and generate the fip (below).
+ * ```fiptool create --tos-fw bl32.bin --fw-config fdts/stm32mp151_dev_board-tf-a-fw-config.dtb --hw-config u-boot.dtb --nt-fw u-boot.bin --tos-fw-config fdts/stm32mp151_dev_board-tf-a-bl32.dtb fip.bin```
