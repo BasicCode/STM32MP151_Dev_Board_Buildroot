@@ -26,6 +26,20 @@
 	chosen {
 		stdout-path = "serial0:115200n8";
 	};
+
+	panel-rgb@0 {
+		compatible = "qiaodian,qd43003c0-40", "simple-panel";
+		status = "okay";
+		pinctrl-names = "default", "sleep";
+		pinctrl-0 = <&ltdc_pins_a>;
+		pinctrl-1 = <&ltdc_sleep_pins_a>;
+ 
+		port {
+			panel_rgb_in: endpoint {
+				remote-endpoint = <&ltdc_ep0_out>;
+			};
+		};
+	};
 };
 
 &i2c1 {

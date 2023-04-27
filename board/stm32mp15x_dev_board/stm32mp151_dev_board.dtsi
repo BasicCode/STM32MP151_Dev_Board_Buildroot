@@ -57,7 +57,7 @@
 
 	led {
 		compatible = "gpio-leds";
-		led-blue {
+		led-green {
 			label = "heartbeat";
 			gpios = <&gpioa 5 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "heartbeat";
@@ -65,6 +65,7 @@
 		};
 	};
 
+/*
 	sound {
 		compatible = "audio-graph-card";
 		label = "STM32MP15-DK";
@@ -75,6 +76,7 @@
 		dais = <&sai2a_port &sai2b_port &i2s2_port>;
 		status = "okay";
 	};
+*/
 
 	vin: vin {
 		compatible = "regulator-fixed";
@@ -126,7 +128,7 @@
 &dts {
 	status = "okay";
 };
-
+/*
 &ethernet0 {
 	status = "okay";
 	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
@@ -145,6 +147,7 @@
 		};
 	};
 };
+*/
 
 &hash1 {
 	status = "okay";
@@ -190,7 +193,7 @@
 			};
 		};
 	};
-
+/*
 	cs42l51: cs42l51@4a {
 		compatible = "cirrus,cs42l51";
 		reg = <0x4a>;
@@ -223,6 +226,7 @@
 			};
 		};
 	};
+*/
 };
 
 &i2c4 {
@@ -447,20 +451,6 @@
 	status = "okay";
 };
 
-&ltdc {
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&ltdc_pins_a>;
-	pinctrl-1 = <&ltdc_sleep_pins_a>;
-	status = "okay";
-
-	port {
-		ltdc_ep0_out: endpoint@0 {
-			reg = <0>;
-			remote-endpoint = <&sii9022_in>;
-		};
-	};
-};
-
 &m4_rproc {
 	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
 			<&vdev0vring1>, <&vdev0buffer>;
@@ -483,7 +473,7 @@
 &rtc {
 	status = "okay";
 };
-
+/*
 &sai2 {
 	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
 	clock-names = "pclk", "x8k", "x11k";
@@ -526,13 +516,13 @@
 		};
 	};
 };
-
+*/
 &sdmmc1 {
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
 	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
 	disable-wp;
 	st,neg-edge;
 	bus-width = <4>;
