@@ -27,16 +27,19 @@
 		stdout-path = "serial0:115200n8";
 	};
 
-	panel-rgb@0 {
-		compatible = "qiaodian,qd43003c0-40", "simple-panel";
+	panel {
 		status = "okay";
-		pinctrl-names = "default", "sleep";
-		pinctrl-0 = <&ltdc_pins_a>;
-		pinctrl-1 = <&ltdc_sleep_pins_a>;
- 
-		port {
-			panel_rgb_in: endpoint {
-				remote-endpoint = <&ltdc_ep0_out>;
+		compatible = "qiaodian,qd43003c0-40", "simple-panel";
+		power-supply = <&vdd>;
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				panel_in: endpoint {
+					remote-endpoint = <&ltdc_ep0_out>;
+				};
 			};
 		};
 	};
@@ -44,28 +47,28 @@
 
 &i2c1 {
 	touchscreen@38 {
-		compatible = "focaltech,ft6236";
-		reg = <0x38>;
-		interrupts = <2 2>;
-		interrupt-parent = <&gpiof>;
+		compatible = "goodix,gt911";
+		reg = <0x5d>; //0x5d or 0x14
+		interrupts = <12 2>;
+		interrupt-parent = <&gpioe>;
 		interrupt-controller;
 		touchscreen-size-x = <480>;
-		touchscreen-size-y = <800>;
+		touchscreen-size-y = <272>;
 		status = "okay";
 	};
 };
 
 &ltdc {
 	status = "okay";
-	compatible = "qiaodian,qd43003c0-40", "simple-panel";
 	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&ltdc_pins_a>;
-	pinctrl-1 = <&ltdc_sleep_pins_a>;
+	pinctrl-0 = <&ltdc_pins_mx>;
+	pinctrl-1 = <&ltdc_sleep_pins_mx>;
 	status = "okay";
 
 	port {
 		ltdc_ep0_out: endpoint@0 {
 			reg = <0>;
+			remote-endpoint = <&panel_in>;
 		};
 	};
 };
