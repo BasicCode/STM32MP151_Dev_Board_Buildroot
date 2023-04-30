@@ -585,7 +585,7 @@
 	phys = <&usbphyc_port0>;
 	phy-names = "usb", "usb";
 };
-
+/* USB NOT working
 &usbphyc {
 	status = "okay";
 };
@@ -599,6 +599,7 @@
 	status="okay";
 	phy-supply = <&vdd_usb>;
 };
+*/
 
 &vrefbuf {
 	regulator-min-microvolt = <2500000>;

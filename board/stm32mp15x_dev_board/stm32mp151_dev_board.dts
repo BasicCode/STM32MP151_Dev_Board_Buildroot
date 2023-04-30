@@ -26,7 +26,8 @@
 	chosen {
 		stdout-path = "serial0:115200n8";
 	};
-
+/*
+	// Orient Display 400x272
 	panel {
 		status = "okay";
 		compatible = "qiaodian,qd43003c0-40", "simple-panel";
@@ -43,17 +44,65 @@
 			};
 		};
 	};
+	*/
+	
+	// MYIC display
+	panel {
+		status = "okay";
+		compatible = "cdtech,s070pws19hp-fc21", "simple-panel";
+		power-supply = <&vdd>;
+		//enable-gpios = <&gpioi 3 GPIO_ACTIVE_HIGH>;
+
+		display-timings {
+						timing0: timing0 {
+						clock-frequency = <33300000>;
+							hactive = <800>;
+							vactive = <480>;
+							hfront-porch = <210>;
+							hback-porch = <46>;
+							hsync-len = <46>;
+							vback-porch = <23>;
+							vfront-porch = <22>;
+							vsync-len = <23>;
+							hsync-active = <0>;
+							vsync-active = <0>;
+							de-active = <0>;
+							pixelclk-active = <1>;
+
+			};
+		};
+		port@0 {
+			reg = <0>;
+			panel_in: endpoint {
+				remote-endpoint = <&ltdc_ep0_out>;
+			};
+		};
+	};
 };
 
 &i2c1 {
+	/*
+	//Orient Display Touch Panel
 	touchscreen@38 {
 		compatible = "goodix,gt911";
-		reg = <0x5d>; //0x5d or 0x14
+		reg = <0x14>; //0x5d or 0x14
 		interrupts = <12 2>;
 		interrupt-parent = <&gpioe>;
 		interrupt-controller;
 		touchscreen-size-x = <480>;
 		touchscreen-size-y = <272>;
+		status = "okay";
+	};
+	*/
+	//MYIC LCD Touch Panel
+	touchscreen@38 {
+		compatible = "edt,edt-ft5306";
+		reg = <0x38>; //0x38
+		interrupts = <12 2>;
+		interrupt-parent = <&gpioe>;
+		interrupt-controller;
+		touchscreen-size-x = <800>;
+		touchscreen-size-y = <480>;
 		status = "okay";
 	};
 };
