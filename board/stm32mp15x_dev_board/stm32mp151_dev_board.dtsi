@@ -58,25 +58,22 @@
 	led {
 		compatible = "gpio-leds";
 		led-green {
-			label = "heartbeat";
+			label = "green";
 			gpios = <&gpioa 5 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "heartbeat";
 			default-state = "off";
 		};
+		led-red {
+			label = "red";
+			gpios = <&gpioa 3 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+		led-blue {
+			label = "blue";
+			gpios = <&gpioc 0 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
 	};
-
-/*
-	sound {
-		compatible = "audio-graph-card";
-		label = "STM32MP15-DK";
-		routing =
-			"Playback" , "MCLK",
-			"Capture" , "MCLK",
-			"MICL" , "Mic Bias";
-		dais = <&sai2a_port &sai2b_port &i2s2_port>;
-		status = "okay";
-	};
-*/
 
 	vin: vin {
 		compatible = "regulator-fixed";
@@ -125,7 +122,7 @@
 		};
 	};
 
-	ltdc_sleep_pins_mx: ltdc_sleep_mx-0 {
+	ltdc_sleep_pins_mx: ltdc_sleep-0 {
 		pins {
 			pinmux = 
 			<STM32_PINMUX('G', 7, ANALOG)>, /* LTDC_CLK */
@@ -187,7 +184,7 @@
 		};
 	};
 
-	i2c1_pins_mx: i2c1-0 {
+	i2c1_pins_mx: i2c1@0 {
 		pins {
 			pinmux = <STM32_PINMUX('F', 14, AF5)>, /* I2C1_SCL */
 				 <STM32_PINMUX('F', 15, AF5)>; /* I2C1_SDA */
@@ -197,7 +194,7 @@
 		};
 	};
 	
-	i2c1_sleep_pins_mx: i2c1-0 {
+	i2c1_sleep_pins_mx: i2c1@0 {
 		pins {
 			pinmux = <STM32_PINMUX('F', 14, ANALOG)>, /* I2C1_SCL */
 				 <STM32_PINMUX('F', 15, ANALOG)>; /* I2C1_SDA */
@@ -249,26 +246,6 @@
 &dts {
 	status = "okay";
 };
-/*
-&ethernet0 {
-	status = "okay";
-	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
-	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_a>;
-	pinctrl-names = "default", "sleep";
-	phy-mode = "rgmii-id";
-	max-speed = <1000>;
-	phy-handle = <&phy0>;
-
-	mdio {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		compatible = "snps,dwmac-mdio";
-		phy0: ethernet-phy@0 {
-			reg = <0>;
-		};
-	};
-};
-*/
 
 &hash1 {
 	status = "okay";
@@ -489,50 +466,7 @@
 &rtc {
 	status = "okay";
 };
-/*
-&sai2 {
-	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
-	clock-names = "pclk", "x8k", "x11k";
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&sai2a_pins_a>, <&sai2b_pins_b>;
-	pinctrl-1 = <&sai2a_sleep_pins_a>, <&sai2b_sleep_pins_b>;
-	status = "okay";
 
-	sai2a: audio-controller@4400b004 {
-		#clock-cells = <0>;
-		dma-names = "tx";
-		status = "okay";
-
-		sai2a_port: port {
-			sai2a_endpoint: endpoint {
-				remote-endpoint = <&cs42l51_tx_endpoint>;
-				dai-format = "i2s";
-				mclk-fs = <256>;
-				dai-tdm-slot-num = <2>;
-				dai-tdm-slot-width = <32>;
-			};
-		};
-	};
-
-	sai2b: audio-controller@4400b024 {
-		dma-names = "rx";
-		st,sync = <&sai2a 2>;
-		clocks = <&rcc SAI2_K>, <&sai2a>;
-		clock-names = "sai_ck", "MCLK";
-		status = "okay";
-
-		sai2b_port: port {
-			sai2b_endpoint: endpoint {
-				remote-endpoint = <&cs42l51_rx_endpoint>;
-				dai-format = "i2s";
-				mclk-fs = <256>;
-				dai-tdm-slot-num = <2>;
-				dai-tdm-slot-width = <32>;
-			};
-		};
-	};
-};
-*/
 &sdmmc1 {
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
@@ -684,21 +618,6 @@
 		vdd-supply = <&v3v3>;
 	};
 };
-
-/*
-&usbotg_hs {
-	phys = <&usbphyc_port1 0>;
-	phy-names = "usb2-phy";
-	usb-role-switch;
-	status = "okay";
-
-	port {
-		usbotg_hs_ep: endpoint {
-			remote-endpoint = <&con_usbotg_hs_ep>;
-		};
-	};
-};
-*/
 
 &usbphyc {
 	status = "okay";
