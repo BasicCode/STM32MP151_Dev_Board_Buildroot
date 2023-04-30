@@ -63,7 +63,6 @@
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&ltdc_pins_mx>;
 	pinctrl-1 = <&ltdc_sleep_pins_mx>;
-	status = "okay";
 
 	port {
 		ltdc_ep0_out: endpoint@0 {
@@ -72,7 +71,7 @@
 		};
 	};
 };
-/*
+
 &usbh_ehci {
 	status = "okay";
 	phys = <&usbphyc_port0>, <&usbphyc_port1>;
@@ -116,4 +115,3 @@
 	st,tune-hs-rx-offset = <2>;
 	st,no-lsfs-sc;
 };
-*/
