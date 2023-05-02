@@ -16,11 +16,6 @@ image sdcard.img {
 		image = "%ATFBIN%"
 	}
 
-	partition ssbl {
-		image = "u-boot.stm32"
-		size = 2M
-	}
-
 	partition rootfs {
 		image = "rootfs.ext4"
 		bootable = "yes"
