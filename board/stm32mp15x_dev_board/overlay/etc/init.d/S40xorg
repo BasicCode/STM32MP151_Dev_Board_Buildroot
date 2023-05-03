@@ -1,1 +1,3 @@
-# dummy file to override the default which doesn't work
+##
+# Dummy file to prevent Xorg from starting at bood
+##
