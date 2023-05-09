@@ -15,11 +15,11 @@ This *should* behave like any external buildroot tree, except that there was som
 * Clone this repository, as well as Buildroot.
 * In the **Buildroot** directory, create a config file based on this external tree:
 ```
-BR2_EXTERNAL=../STM32MP15x_Dev_Board make stm32mp15x_dev_board_defconfig
+BR2_EXTERNAL=../STM32MP15x_Dev_Board make stm32mp151_dev_board_defconfig
 ```
 * Review or modify the system in ```make menuconfig```.
 * Build the image using ```make```.
-* You **may** need to manually add the *stm32mp151_dev_board_uboot_defconfig* file to *buildroot/output/build/uboot/config* (I haven't figured out how to make Buildroot use it yet).
+* You **may** need to manually add the *stm32mp151_dev_board_uboot_defconfig* file to *buildroot/output/build/uboot/config* (I haven't figured out how to make Buildroot do it automatically).
 * Manually create fip package:
  - Copy the *u-boot.dtb*, and *u-boot.bin* files from *output/build/uboot-...* to *output/build/arm-trusted-firmware-v2.7/build/stm32mp1/debug* for convenience.
  - CD to *output/build/arm-trusted-firmware-v2.7/build/stm32mp1/debug* and generate the fip (below).
