@@ -16,7 +16,7 @@ This *should* behave like any external buildroot tree, except that there was som
 * Clone this repository, as well as Buildroot.
 * In the **Buildroot** directory, create a config file based on this external tree:
 ```
-BR2_EXTERNAL=../STM32MP15x_Dev_Board make stm32mp151_dev_board_defconfig
+BR2_EXTERNAL=../STM32MP151_Dev_Board_Buildroot make stm32mp151_dev_board_defconfig
 ```
 * Review or modify the system in ```make menuconfig```.
 * Build the image using ```make```.
