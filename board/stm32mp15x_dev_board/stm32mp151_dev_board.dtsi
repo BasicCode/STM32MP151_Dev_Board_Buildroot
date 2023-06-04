@@ -567,8 +567,8 @@
  */
 &usbh_ehci {
 	status = "okay";
-	phys = <&usbphyc_port0>, <&usbphyc_port1 1>;
-	phy-names = "usb", "usb";
+	phys = <&usbphyc_port0>;
+	phy-names = "usb";
 };
 
 &usbh_ohci {

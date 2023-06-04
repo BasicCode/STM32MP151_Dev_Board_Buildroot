@@ -1,6 +1,7 @@
-# STM32MP15x_Dev_Board
-This is a work-in-progress for a custom PCB based on an [MYiR SoM](https://www.myirtech.com/list.asp?id=658). (TODO: Update with PCB specs and schematics)<br />
-<br />
+# STM32MP151 Dev Board Buildroot
+This is a work-in-progress for a custom PCB based on an [MYiR SoM](https://www.myirtech.com/list.asp?id=658).
+* [PCB Design Files](https://github.com/BasicCode/STM32MP151_Dev_Board_PCB)
+  
 **NOTE:** This is currently in development. While it does work, in that it compiles and boots, it doesn't do anything else. Read on.
 
 ## Current State
