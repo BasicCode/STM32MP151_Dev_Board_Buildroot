@@ -8,11 +8,12 @@
 #
 atf_image()
 {
+	#
+	# TODO: Make the FIP image here
+	#
 	local ATF_VARIABLES="$(sed -n 's/^BR2_TARGET_ARM_TRUSTED_FIRMWARE_ADDITIONAL_VARIABLES="\([\/a-zA-Z0-9_=. \-]*\)"$/\1/p' ${BR2_CONFIG})"
 
-	if grep -Eq "DTB_FILE_NAME=stm32mp157c-dk2.dtb" <<< ${ATF_VARIABLES}; then
-		echo "tf-a-stm32mp157c-dk2.stm32"
-	elif grep -Eq "DTB_FILE_NAME=stm32mp151_dev_board-tf-a.dtb" <<< ${ATF_VARIABLES}; then
+	if grep -Eq "DTB_FILE_NAME=stm32mp151_dev_board-tf-a.dtb" <<< ${ATF_VARIABLES}; then
         echo "tf-a-stm32mp151_dev_board-tf-a.stm32"
 	fi
 }
@@ -24,7 +25,7 @@ main()
 	local GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
 
 	sed -e "s/%ATFBIN%/${ATFBIN}/" \
-		~/STM32MP151_Dev_Board_Buildroot/board/stm32mp151_dev_board/common/stm32mp157/genimage.cfg.template > ${GENIMAGE_CFG}
+		${BR2_EXTERNAL_STM32MP151_Dev_Board_Buildroot_PATH}/board/stm32mp151_dev_board/genimage.cfg.template > ${GENIMAGE_CFG}
 
 	support/scripts/genimage.sh -c ${GENIMAGE_CFG}
 
