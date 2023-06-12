@@ -10,6 +10,7 @@ Currently, this is just a proof of concept. It boots to Linux, and that's about 
 * Tested with Buildroot 2023.04
 * Uses mainline STM32 dtsi, and ARM Trusted Firmware where possible.
 * Includes an overlay with some configuration, but ```boot/extlinux.conf``` is the only file which is actually required.
+* Includes an external package for the ESP8089 WiFi Chipset
 
 ## Usage
 This *should* behave like any external buildroot tree, except that there was some trouble getting *Arm Trusted Firmware* to . General steps for use:
