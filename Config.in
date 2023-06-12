@@ -1,0 +1,2 @@
+# Example external package definition
+#source "$BR2_EXTERNAL_STM32MP151_Dev_Board_PATH/package/xyz/Config.in"

@@ -1,0 +1,4 @@
+config BR2_PACKAGE_XYZ
+       bool "xyz"
+       help
+               This is sample package.

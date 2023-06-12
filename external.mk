@@ -1,0 +1,1 @@
+include $(sort $(wildcard $(BR2_EXTERNAL_STM32MP151_Dev_Board_PATH)/package/*/*.mk))
