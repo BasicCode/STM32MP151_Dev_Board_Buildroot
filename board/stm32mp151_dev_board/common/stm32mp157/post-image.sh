@@ -24,7 +24,7 @@ main()
 	local GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
 
 	sed -e "s/%ATFBIN%/${ATFBIN}/" \
-		~/STM32MP151_Dev_Board/board/stm32mp151_dev_board/common/stm32mp157/genimage.cfg.template > ${GENIMAGE_CFG}
+		~/STM32MP151_Dev_Board_Buildroot/board/stm32mp151_dev_board/common/stm32mp157/genimage.cfg.template > ${GENIMAGE_CFG}
 
 	support/scripts/genimage.sh -c ${GENIMAGE_CFG}
 
