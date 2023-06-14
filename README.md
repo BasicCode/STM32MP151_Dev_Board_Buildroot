@@ -5,10 +5,11 @@ This is a work-in-progress for a custom PCB based on an [MYiR SoM](https://www.m
 **NOTE:** This is currently in development. While it does work, in that it compiles and boots, it doesn't do anything else. Read on.
 
 ## Current State
-Currently, this is just a proof of concept. It boots to Linux, and that's about it. The *STM32MP157x-dk2* configuration has been retained for reference but it not maintained. It currently boots to Linux 5.1x with a minimal collection of packages, and has a demo of [LVGL](https://github.com/lvgl/lv_port_linux_frame_buffer) using the framebuffer.
+Currently, this is just a proof of concept. It currently boots to Linux 5.1x with a minimal collection of packages, and has a demo of [LVGL](https://github.com/lvgl/lv_port_linux_frame_buffer) using the framebuffer.
 * Uses Linux kernel 5.1
 * Tested with Buildroot 2023.04
-* Uses mainline STM32 dtsi, and ARM Trusted Firmware where possible.
+* Uses mainline STM32 dtsi, and ARM Trusted Firmware with *sp_min* for BL2.
+* Custom dts and dtsi are included for board specific changes. Not all of the SoM-specific pinouts are reflected in the files.
 * Includes an overlay with some configuration, but ```boot/extlinux.conf``` is the only file which is actually required.
 * Includes an external package for the ESP8089 WiFi Chipset.
 
