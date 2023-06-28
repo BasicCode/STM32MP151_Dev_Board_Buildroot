@@ -1,11 +1,10 @@
-ESP8089_VERSION = 0f61a8d29368d988fe0254d79474246ca39e997e
-ESP8089_SITE = $(call github,al177,ESP8089,$(ESP8089_VERSION))
-ESP8089_LICENSE = GPLv2
-ESP8089_LICENSE_FILES = COPYING
- 
+ESP_HOSTED_NG_VERSION = 1.0
+ESP_HOSTED_NG_SITE = ~/esp-hosted-ng
+ESP_HOSTED_NG_SITE_METHOD = local
+
 define KERNEL_MODULE_BUILD_CMDS
         $(MAKE) -C '$(@D)' LINUX_DIR='$(LINUX_DIR)' CC='$(TARGET_CC)' LD='$(TARGET_LD)' modules
 endef
- 
+
 $(eval $(kernel-module))
 $(eval $(generic-package))
