@@ -92,7 +92,7 @@
  * WiFi
  */
 &sdmmc3 {
-	arm,primecell-periphid = <0x10153180>;
+	//arm,primecell-periphid = <0x10153180>;
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
 	pinctrl-1 = <&sdmmc3_b4_od_pins_a>;
@@ -101,12 +101,8 @@
 	non-removable;
 	st,neg-edge;
 	bus-width = <4>;
-	no-sd;
-	no-mmc;
 	vmmc-supply = <&v3v3>;
 	mmc-pwrseq = <&wifi_pwrseq>;
-	//#address-cells = <1>;
-	//#size-cells = <0>;
 	status = "okay";
 
 	esp8089: sdio_wifi@1 {

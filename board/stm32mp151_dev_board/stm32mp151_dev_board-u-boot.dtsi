@@ -33,6 +33,24 @@
 			status = "okay";
 		};
 	};
+
+	// Orient Display 480x272
+	panel {
+		status = "okay";
+		compatible = "qiaodian,qd43003c0-40", "simple-panel";
+		power-supply = <&vdd>;
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				panel_in: endpoint {
+					remote-endpoint = <&ltdc_ep0_out>;
+				};
+			};
+		};
+	};
 };
 
 &adc {
