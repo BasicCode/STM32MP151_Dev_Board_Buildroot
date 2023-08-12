@@ -155,8 +155,8 @@
 	};
 };
 
-&sai2 {
-	clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
+&sai1 {
+	clocks = <&rcc SAI1>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
 };
 
 &sdmmc1 {

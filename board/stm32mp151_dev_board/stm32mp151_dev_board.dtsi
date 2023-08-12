@@ -55,6 +55,9 @@
 		};
 	};
 
+	/*
+	 * RGB LED on Board
+	 */
 	led {
 		compatible = "gpio-leds";
 		led-green {
@@ -81,6 +84,15 @@
 		regulator-min-microvolt = <5000000>;
 		regulator-max-microvolt = <5000000>;
 		regulator-always-on;
+	};
+	
+	sound {
+		compatible = "audio-graph-card";
+		label = "STM32MP15-DK";
+		routing =
+			"Playback" , "MCLK";
+		dais = <&sai1b_port>;
+		status = "okay";
 	};
 };
 
@@ -183,6 +195,29 @@
 			slew-rate = <0>;
 		};
 	};
+
+	// Audio
+	sai1b_pins_a: sai1b-0 {
+		pins {
+			pinmux = <STM32_PINMUX('F', 6, AF6)>, // SAI2_SD_B
+				<STM32_PINMUX('F', 7, AF6)>, // SAI2_MCLK_BS
+				<STM32_PINMUX('F', 8, AF6)>, // SAI2_SCK_B 
+				<STM32_PINMUX('F', 9, AF6)>; // SAI2_FS_B 
+				  
+			slew-rate = <0>;
+			drive-push-pull;
+			bias-disable;
+		};
+	};
+
+	sai1b_sleep_pins_a: sai1b-sleep-0 {
+		pins {
+			pinmux = <STM32_PINMUX('F', 6, ANALOG)>, // SAI2_SD_B 
+			<STM32_PINMUX('F', 7, ANALOG)>, // SAI2_MCLK_B 
+			<STM32_PINMUX('F', 8, ANALOG)>, // SAI2_SCK_B 
+			<STM32_PINMUX('F', 9, ANALOG)>; // SAI2_FS_B 
+		};
+	};
 };
 
 &cec {
@@ -213,6 +248,27 @@
 	status = "okay";
 	/delete-property/dmas;
 	/delete-property/dma-names;
+	
+	//PCM3060 Audio Codec
+	pcm3060: pcm3060@46 {
+		compatible = "ti,pcm3060";
+		reg = <0x46>;
+		ti,out-single-ended = "true";
+		clocks = <&sai1b>;
+		clock-names = "MCLK";
+
+		pcm3060_port: port {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			pcm3060_tx_endpoint: endpoint@0 {
+				reg = <0>;
+				remote-endpoint = <&sai1b_endpoint>;
+				frame-master;
+				bitclock-master;
+			};
+		};
+	};
 };
 
 
@@ -382,15 +438,6 @@
 	status = "disabled";
 };
 
-&i2s2 {
-	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
-	clock-names = "pclk", "i2sclk", "x8k", "x11k";
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&i2s2_pins_a>;
-	pinctrl-1 = <&i2s2_sleep_pins_a>;
-	status = "okay";
-};
-
 &ipcc {
 	status = "okay";
 };
@@ -423,29 +470,21 @@
 	status = "okay";
 };
 
+/*
+ * SD card / Boot
+ */
 &sdmmc1 {
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
 	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+	cd-gpios = <&gpiob 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; //STM32MP151_dev_board
+	//cd-gpios = <&gpiob 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //STM32mp157c-dk2
 	disable-wp;
 	st,neg-edge;
 	bus-width = <4>;
 	vmmc-supply = <&v3v3>;
 	status = "okay";
-};
-
-&sdmmc3 {
-	pinctrl-names = "default", "opendrain", "sleep";
-	pinctrl-0 = <&sdmmc3_b4_pins_a>;
-	pinctrl-1 = <&sdmmc3_b4_od_pins_a>;
-	pinctrl-2 = <&sdmmc3_b4_sleep_pins_a>;
-	broken-cd;
-	st,neg-edge;
-	bus-width = <4>;
-	vmmc-supply = <&v3v3>;
-	status = "disabled";
 };
 
 &timers1 {
@@ -567,13 +606,13 @@
  */
 &usbh_ehci {
 	status = "okay";
-	phys = <&usbphyc_port0>;
-	phy-names = "usb";
+	phys = <&usbphyc_port0>, <&usbphyc_port1 1>;
+	phy-names = "usb", "usb";
 };
 
 &usbh_ohci {
-	phys = <&usbphyc_port0>;
-	phy-names = "usb";
+	phys = <&usbphyc_port0>, <&usbphyc_port1 1>;
+	phy-names = "usb", "usb";
 	status = "okay";
 };
 
@@ -611,4 +650,38 @@
 
 &usb33 {
 	regulator-always-on;
+};
+
+/*
+ * Audio
+ */
+&sai1 {
+	clocks = <&rcc SAI1>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
+	clock-names = "pclk", "i2sclk", "x8k", "x11k";
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&sai1b_pins_a>;
+	pinctrl-1 = <&sai1b_sleep_pins_a>;
+	status = "okay";
+
+	sai1a: audio-controller@4400a004 {
+		#clock-cells = <0>;
+		status = "okay";
+	};
+
+	sai1b: audio-controller@4400a024 {
+		clocks = <&rcc SAI1_K>, <&sai1a>;
+		clock-names = "sai_ck", "MCLK";
+		dma-names = "tx";
+		status = "okay";
+
+		sai1b_port: port {
+			sai1b_endpoint: endpoint {
+				remote-endpoint = <&pcm3060_tx_endpoint>;
+				format = "i2s";
+				mclk-fs = <256>;
+				dai-tdm-slot-num = <2>;
+				dai-tdm-slot-width = <32>;
+			};
+		};
+	};
 };

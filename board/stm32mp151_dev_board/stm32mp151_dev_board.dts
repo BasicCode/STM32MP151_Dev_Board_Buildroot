@@ -44,7 +44,8 @@
 			};
 		};
 	};
-/*
+
+	/*
 	// MYIC display
 	panel {
 		status = "okay";
@@ -77,12 +78,47 @@
 			};
 		};
 	};
-*/
+	*/
+	
+	// WiFi Power Sequence (WIFI_UP)
+	wifi_pwrseq: wifi_pwrseq {
+		compatible = "mmc-pwrseq-simple";
+		reset-gpios = <&gpioh 4 GPIO_ACTIVE_LOW>; // PH4
+		post-power-on-delay-ms = <200>;
+	};
+};
+
+/*
+ * WiFi
+ */
+&sdmmc3 {
+	arm,primecell-periphid = <0x10153180>;
+	pinctrl-names = "default", "opendrain", "sleep";
+	pinctrl-0 = <&sdmmc3_b4_pins_a>;
+	pinctrl-1 = <&sdmmc3_b4_od_pins_a>;
+	pinctrl-2 = <&sdmmc3_b4_sleep_pins_a>;
+	broken-cd;
+	non-removable;
+	st,neg-edge;
+	bus-width = <4>;
+	no-sd;
+	no-mmc;
+	vmmc-supply = <&v3v3>;
+	mmc-pwrseq = <&wifi_pwrseq>;
+	//#address-cells = <1>;
+	//#size-cells = <0>;
+	status = "okay";
+
+	esp8089: sdio_wifi@1 {
+		compatible = "esp,esp8089";
+		reg = <1>;
+		//esp,crystal-26M-en = <2>;
+	};
 };
 
 &i2c1 {
 	//Orient Display Touch Panel
-	touchscreen@38 {
+	touchscreen@5d {
 		compatible = "goodix,gt911";
 		reg = <0x5d>; //0x5d or 0x14
 		interrupts = <12 2>;
@@ -92,7 +128,7 @@
 		touchscreen-size-y = <272>;
 		status = "okay";
 	};
-/*
+	/*
 	//MYIC LCD Touch Panel
 	touchscreen@38 {
 		compatible = "edt,edt-ft5306";
@@ -104,7 +140,7 @@
 		touchscreen-size-y = <480>;
 		status = "okay";
 	};
-*/
+	*/
 };
 
 &ltdc {
@@ -120,3 +156,5 @@
 		};
 	};
 };
+
+
