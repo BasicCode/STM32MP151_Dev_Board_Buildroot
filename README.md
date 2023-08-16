@@ -35,6 +35,18 @@ stm32mp151_dev_board.dtb
 
 * The *X11* package is included, and it tries to run as a service at startup. However the default configuration is incorrect and it only shows a black screen. To prevent X11 from starting, remove the file */etc/init.d/S40xorg*, or add a working *xorg.conf* file to the *overlay* folder.
 
+### The Overlay Folder
+There are a few config files in the overlay file for either quality of life, or to make things actually work.
+* **\boot\extlinux.conf** - Required to boot linux. U-Boot will look for this.
+* **\etc\init.d\S40xorg** - A dummy file to overwrite a default which is creatred when Xorg compiles. I don't want Xorg to start on boot.
+* **\etc\modprobe.d\esp.conf** - Config file telling the esp8089 driver which GPIO to use for reset. Since the driver doesn't work anyway, this will probably be removed.
+* **\etc\opkg\distfeeds.conf** - Contains OpenWRT package feed. Need to force it to search the correct architecture when using opkg.
+* **\etc\wpa_supplicant\wpa_cupplicant.conf** - A blank *wpa_supplicant* configuration to fill out.
+* **\etc\X11\xorg.conf** - Sometimes the default is bad, so this is here to replace any defaults with a dummy file.
+* **\etc\directfbrc** - DirectFB config file because it doesn't seem to use FBDev by default, even though it says it does.
+* **\lib\firmwmare** - Firmware files for some wifi cards.
+* **\root** - Just some extra files for testing and playing with.
+
 ## Trips and Tricks
 Some things that caught me out, or helped me out, along the way:
 * I had trouble figuring out how to convince ARM Trusted Firmwawre to build a FIP package from within Buildroot. For reference, or if you want, or need, to create one manually you can do so from within the *buildroot/output/build/arm-trusted-firmware/build/stm32mp1/debug* directory:<br />
