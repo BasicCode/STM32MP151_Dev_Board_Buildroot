@@ -36,7 +36,7 @@ stm32mp151_dev_board.dtb
 * The *X11* package is included, and it tries to run as a service at startup. However the default configuration is incorrect and it only shows a black screen. To prevent X11 from starting, remove the file */etc/init.d/S40xorg*, or add a working *xorg.conf* file to the *overlay* folder.
 
 ### The Overlay Folder
-There are a few config files in the overlay file for either quality of life, or to make things actually work.
+There are a few config files in the overlay file for either quality of life, or to make things actually work. Most are optional depending, or may even conflict with your desired settings.
 * **\boot\extlinux.conf** - Required to boot linux. U-Boot will look for this.
 * **\etc\init.d\S40xorg** - A dummy file to overwrite a default which is creatred when Xorg compiles. I don't want Xorg to start on boot.
 * **\etc\modprobe.d\esp.conf** - Config file telling the esp8089 driver which GPIO to use for reset. Since the driver doesn't work anyway, this will probably be removed.
