@@ -1,4 +1,0 @@
-config BR2_PACKAGE_ESP_HOSTED_NG
-       bool "esp_hosted_ng"
-       help
-               esp_hosted_ng package available from (https://github.com/espressif/esp-hosted/tree/master/esp_hosted_ng).
