@@ -6,8 +6,8 @@ A Buildroot external tree for a custom PCB based on an [MYiR SoM](https://www.my
 
 ## Current State
 The build is very similar to the mainline STM32MP157c-DK2 device tree however there are some minor changes due to the pinout of the SoM, and the RAM configuration. Not all of module-specific pinouts have been implemented yet.
-* Uses Linux kernel 5.1
-* Tested with Buildroot 2023.04
+* Uses Linux kernel 6.3
+* Tested with Buildroot 2023.05
 * Tested with ATF 2.7
 * Uses mainline STM32 dtsi where possible, and ARM Trusted Firmware with *sp_min* for BL2.
 * Custom dts and dtsi are included for board specific changes. Not all of the SoM specific pinouts are reflected in the files.
