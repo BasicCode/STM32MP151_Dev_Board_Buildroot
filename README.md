@@ -42,7 +42,7 @@ There are a few config files in the overlay file for either quality of life, or 
 * **\etc\modprobe.d\esp.conf** - Config file telling the esp8089 driver which GPIO to use for reset. Since the driver doesn't work anyway, this will probably be removed.
 * **\etc\opkg\distfeeds.conf** - Contains OpenWRT package feed. Need to force it to search the correct architecture when using opkg.
 * **\etc\wpa_supplicant\wpa_cupplicant.conf** - A blank *wpa_supplicant* configuration to fill out.
-* **\etc\X11\xorg.conf** - Sometimes the default is bad, so this is here to replace any defaults with a dummy file.
+* **\etc\X11\xorg.conf** - Sometimes the default are bad, sometimes they aren't.
 * **\etc\directfbrc** - DirectFB config file because it doesn't seem to use FBDev by default, even though it says it does.
 * **\lib\firmwmare** - Firmware files for some wifi cards.
 * **\root** - Just some extra files for testing and playing with.
