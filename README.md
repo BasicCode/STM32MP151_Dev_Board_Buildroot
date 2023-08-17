@@ -1,5 +1,5 @@
 # STM32MP151 Dev Board Buildroot
-A Buildroot external tree for a custom PCB based on an [MYiR SoM](https://www.myirtech.com/list.asp?id=658). This project, along with the PCB design below, were an educational experience to learn the Buildroot system, Linux kernel, and a bit of PCB design. It currently boots to Linux 5.1x with a minimal collection of packages, and has a demo of [LVGL](https://github.com/lvgl/lv_port_linux_frame_buffer) using the framebuffer.
+A Buildroot external tree for a custom PCB based on an [MYiR SoM](https://www.myirtech.com/list.asp?id=658). This project, along with the PCB design below, were an educational experience to learn the Buildroot system, Linux kernel, and a bit of PCB design. It currently boots to Linux 6.3 with a minimal collection of packages, and has a demo of [LVGL](https://github.com/lvgl/lv_port_linux_frame_buffer) using the framebuffer.
 * [PCB Design Files](https://github.com/BasicCode/STM32MP151_Dev_Board_PCB)
   
 **NOTE:** This is currently in development. While it does work, in that it compiles and boots, it doesn't do anything else.
@@ -33,9 +33,7 @@ There are so many! But some big ones:
 stm32mp151_dev_board.dtb
 ```
 
-* The *X11* package is included, and it tries to run as a service at startup. However the default configuration is incorrect and it only shows a black screen. To prevent X11 from starting, remove the file */etc/init.d/S40xorg*, or add a working *xorg.conf* file to the *overlay* folder.
-
-* esp8089 driver does not seem to build on Linux 6.3. Probably won't fix this.
+* esp8089 does not seem to communicate. I'm not sure if the problem is hardware, hookup, or the driver. I assume there is a design issue but I cannot figure it out.
 
 ### The Overlay Folder
 There are a few config files in the overlay file for either quality of life, or to make things actually work. Most are optional depending, or may even conflict with your desired settings.
