@@ -92,7 +92,7 @@
  * WiFi
  */
 &sdmmc3 {
-	//arm,primecell-periphid = <0x10153180>;
+	arm,primecell-periphid = <0x10153180>;
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
 	pinctrl-1 = <&sdmmc3_b4_od_pins_a>;
@@ -108,11 +108,12 @@
 	esp8089: sdio_wifi@1 {
 		compatible = "esp,esp8089";
 		reg = <1>;
-		//esp,crystal-26M-en = <2>;
+		esp,crystal-26M-en = <2>;
 	};
 };
 
 &i2c1 {
+	
 	//Orient Display Touch Panel
 	touchscreen@5d {
 		compatible = "goodix,gt911";
@@ -124,6 +125,7 @@
 		touchscreen-size-y = <272>;
 		status = "okay";
 	};
+	
 	/*
 	//MYIC LCD Touch Panel
 	touchscreen@38 {
