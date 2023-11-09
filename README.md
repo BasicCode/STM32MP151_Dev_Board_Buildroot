@@ -1,8 +1,9 @@
 # STM32MP151 Dev Board Buildroot
+  
+**NOTE:** I've moved on from this system and it is no longer maintained. You can find some progress on the errors in my [STM32MP135 board](https://github.com/BasicCode/STM32MP135_Dev_Board_Buildroot).
+  
 A Buildroot external tree for a custom PCB based on an [MYiR SoM](https://www.myirtech.com/list.asp?id=658). This project, along with the PCB design below, were an educational experience to learn the Buildroot system, Linux kernel, and a bit of PCB design. It currently boots to Linux 6.3 with a minimal collection of packages, and has a demo of [LVGL](https://github.com/lvgl/lv_port_linux_frame_buffer) using the framebuffer.
 * [PCB Design Files](https://github.com/BasicCode/STM32MP151_Dev_Board_PCB)
-  
-**NOTE:** This is currently in development. While it does work, in that it compiles and boots, it doesn't do anything else.
 
 ## Current State
 The build is very similar to the mainline STM32MP157c-DK2 device tree however there are some minor changes due to the pinout of the SoM, and the RAM configuration. Not all of module-specific pinouts have been implemented yet.
